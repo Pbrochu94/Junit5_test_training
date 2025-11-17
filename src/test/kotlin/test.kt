@@ -1,0 +1,61 @@
+import org.junit.platform.suite.api.*
+import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.*
+
+//Exercise 1
+class Case1 {
+    @Test
+    fun `Cumulate function successfully cumulate numbers of a list` (){
+        val expectedResult:Int = numberList.sum()
+        val actualResult = cumulate(listOfNmb = numberList)
+        assertEquals(actualResult,expectedResult, "La fonction cumulate doit additionner tous les nombres de la liste")
+    }
+}
+//Exercise 2
+class Case2 {
+    @Test
+    fun `Positive division scenario`(){
+        val randomNmb1:Int = numberList.random()
+        val randomNmb2:Int = numberList.random()
+        val biggestNmb:Int = Math.max(randomNmb2,randomNmb1)
+        val smallestNmb:Int = Math.min(randomNmb2,randomNmb1)
+        val actualResult:Int = divide(biggestNmb,smallestNmb)
+        val expectedResult:Int = biggestNmb/smallestNmb
+        assertEquals(actualResult, expectedResult)
+    }
+    @Test
+    fun `Divide throw error when a 0 is used`(){
+        val randomNmb1:Int = numberList.random()
+        assertThrows<IllegalArgumentException>{
+            divide(randomNmb1, 0)
+        }
+    }
+}
+//Exercise 3
+class Case3 {
+    @Test
+    fun `isEven fun returns true when number is even`(){
+        evenNmbList.forEach{
+            assertTrue(isEven(it), "isEven should return true with even numbers")
+        }
+    }
+    @Test
+    fun `isEven fun returns false when number is odd`(){
+        oddNmbList.forEach{
+            assertFalse(isEven(it), "isEven should return false with odd numbers")
+        }
+    }
+}
+//Exercise 4
+class Case4 {
+    @Test
+    fun `Calculator add function assertion`(){
+        val calculator = Calculator()
+        val number1:Int = (Math.random()*100).toInt()
+        val number2:Int = (Math.random()*100).toInt()
+        val expectedResult:Int = number1 + number2
+        val actualResult:Int = calculator.add(number1, number2)
+        println("Expected: $expectedResult\nActual: $actualResult")
+        assertEquals(expectedResult, actualResult, "Add method of the calculator does not return the sum of the 2 parameters given")
+    }
+}
