@@ -1,3 +1,4 @@
+import jdk.incubator.vector.Float16.subtract
 import org.junit.platform.suite.api.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.*
@@ -48,14 +49,69 @@ class Case3 {
 }
 //Exercise 4
 class Case4 {
+    private lateinit var calculator: Calculator
+
+    @BeforeEach
+    fun calculatorInit() {
+        calculator = Calculator()
+    }
+
     @Test
-    fun `Calculator add function assertion`(){
-        val calculator = Calculator()
-        val number1:Int = (Math.random()*100).toInt()
-        val number2:Int = (Math.random()*100).toInt()
-        val expectedResult:Int = number1 + number2
-        val actualResult:Int = calculator.add(number1, number2)
+    fun `Calculator add function assertion`() {
+        val number1: Int = (Math.random() * 100).toInt()
+        val number2: Int = (Math.random() * 100).toInt()
+        val expectedResult: Int = number1 + number2
+        val actualResult: Int = calculator.add(number1, number2)
         println("Expected: $expectedResult\nActual: $actualResult")
-        assertEquals(expectedResult, actualResult, "Add method of the calculator does not return the sum of the 2 parameters given")
+        assertEquals(
+            expectedResult,
+            actualResult,
+            "Add method of the calculator does not return the sum of the 2 parameters given"
+        )
+    }
+
+    @Test
+    fun `Subtraction returns a - b`() {
+        var randomNmb: List<Int> = listOf((Math.random() * 1000).toInt(),(Math.random() * 1000).toInt())
+        var biggestNmb:Int = randomNmb.max()
+        var smallestNmb:Int = randomNmb.min()
+        var expectedResult:Int = biggestNmb-smallestNmb
+        var actualResult: Int = calculator.subtract(biggestNmb, smallestNmb)
+        assertEquals(expectedResult, actualResult)
+    }
+
+    @Test
+    fun `Subtract returns IllegalArgumentExeption when Difference smaller than 0`(){
+        var number:Int = (Math.random() * 1000).toInt()
+        var biggerNmb:Int = number+1
+        assertThrows<IllegalArgumentException>{
+            calculator.subtract(number, biggerNmb)
+        }
+    }
+
+    @Test
+    fun `Multiply returns product of number1 times number2`(){
+        var number1:Int = (Math.random() * 1000).toInt()
+        var number2:Int = (Math.random() * 1000).toInt()
+        var expectedResult:Int = number1*number2
+        var actualResult:Int = calculator.multiply(number1, number2)
+        assertEquals(expectedResult, actualResult)
+    }
+
+    @Test
+    fun `divide method returns quotient of number 1 divide by number 2`(){
+        var randomNmb: List<Int> = listOf((Math.random() * 1000).toInt(),(Math.random() * 1000).toInt())
+        var biggestNmb:Int = randomNmb.max()
+        var smallestNmb:Int = randomNmb.min()
+        var expectedResult:Int = biggestNmb/smallestNmb
+        var actualResult:Int = calculator.divide(biggestNmb, smallestNmb)
+        assertEquals(expectedResult, actualResult)
+    }
+
+    @Test
+    fun `Divide return illegalArgumentException`(){
+        assertThrows<IllegalArgumentException>{
+            calculator.divide(100, 0)
+        }
     }
 }
