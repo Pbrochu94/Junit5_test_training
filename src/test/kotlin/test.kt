@@ -102,7 +102,7 @@ class Case4 {
     fun `divide method returns quotient of number 1 divide by number 2`(){
         var randomNmb: List<Int> = listOf((Math.random() * 1000).toInt(),(Math.random() * 1000).toInt())
         var biggestNmb:Int = randomNmb.max()
-        var smallestNmb:Int = randomNmb.min()
+        var smallestNmb:Int = randomNmb.min().let { if(it ==0) 1 else it }
         var expectedResult:Int = biggestNmb/smallestNmb
         var actualResult:Int = calculator.divide(biggestNmb, smallestNmb)
         assertEquals(expectedResult, actualResult)
