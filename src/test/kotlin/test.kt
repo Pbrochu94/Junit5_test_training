@@ -2,6 +2,7 @@ import jdk.incubator.vector.Float16.subtract
 import org.junit.platform.suite.api.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.*
+import kotlin.collections.listOf
 
 //Exercise 1
 class Case1 {
@@ -50,19 +51,21 @@ class Case3 {
 //Exercise 4
 class Case4 {
     private lateinit var calculator: Calculator
+    private lateinit var randomNmbList: MutableList<Int>
 
     @BeforeEach
-    fun calculatorInit() {
+    fun init() {
         calculator = Calculator()
+        randomNmbList = mutableListOf()
+        randomNmbList.add((Math.random() * 100).toInt())
+        randomNmbList.add((Math.random() * 100).toInt())
     }
 
     @Test
     fun `Calculator add function assertion`() {
-        val number1: Int = (Math.random() * 100).toInt()
-        val number2: Int = (Math.random() * 100).toInt()
-        val expectedResult: Int = number1 + number2
-        val actualResult: Int = calculator.add(number1, number2)
-        println("Expected: $expectedResult\nActual: $actualResult")
+        val expectedResult: Int = randomNmbList[0] + randomNmbList[1]
+        val actualResult: Int = calculator.add(randomNmbList[0], randomNmbList[1])
+        //println("number1: ${randomNmbList[0]}, number2: ${randomNmbList[1]}\nExpected:$expectedResult\nActual:$actualResult")
         assertEquals(
             expectedResult,
             actualResult,
@@ -72,46 +75,39 @@ class Case4 {
 
     @Test
     fun `Subtraction returns a - b`() {
-        var randomNmb: List<Int> = listOf((Math.random() * 1000).toInt(),(Math.random() * 1000).toInt())
-        var biggestNmb:Int = randomNmb.max()
-        var smallestNmb:Int = randomNmb.min()
-        var expectedResult:Int = biggestNmb-smallestNmb
-        var actualResult: Int = calculator.subtract(biggestNmb, smallestNmb)
+        var expectedResult:Int = randomNmbList.max()-randomNmbList.min()
+        var actualResult: Int = calculator.subtract(randomNmbList.max(), randomNmbList.min())
+        //println("number1: ${randomNmbList.max()}, number2: ${randomNmbList.min()}\nExpected:$expectedResult\nActual:$actualResult")
         assertEquals(expectedResult, actualResult)
     }
 
     @Test
-    fun `Subtract returns IllegalArgumentExeption when Difference smaller than 0`(){
-        var number:Int = (Math.random() * 1000).toInt()
-        var biggerNmb:Int = number+1
-        assertThrows<IllegalArgumentException>{
-            calculator.subtract(number, biggerNmb)
-        }
-    }
-
-    @Test
     fun `Multiply returns product of number1 times number2`(){
-        var number1:Int = (Math.random() * 1000).toInt()
-        var number2:Int = (Math.random() * 1000).toInt()
-        var expectedResult:Int = number1*number2
-        var actualResult:Int = calculator.multiply(number1, number2)
+        var expectedResult:Int = randomNmbList[0] * randomNmbList[1]
+        var actualResult:Int = calculator.multiply(randomNmbList[0], randomNmbList[1])
+        //println("number1: ${randomNmbList[0]}, number2: ${randomNmbList[1]}\nExpected:$expectedResult\nActual:$actualResult")
         assertEquals(expectedResult, actualResult)
     }
 
     @Test
     fun `divide method returns quotient of number 1 divide by number 2`(){
-        var randomNmb: List<Int> = listOf((Math.random() * 1000).toInt(),(Math.random() * 1000).toInt())
-        var biggestNmb:Int = randomNmb.max()
-        var smallestNmb:Int = randomNmb.min().let { if(it ==0) 1 else it }
+        var biggestNmb:Int = randomNmbList.max()
+        var smallestNmb:Int = randomNmbList.min().let { if(it ==0) 1 else it }
         var expectedResult:Int = biggestNmb/smallestNmb
         var actualResult:Int = calculator.divide(biggestNmb, smallestNmb)
         assertEquals(expectedResult, actualResult)
     }
 
     @Test
-    fun `Divide return illegalArgumentException`(){
+    fun `Divide return illegalArgumentException when divided by 0`(){
         assertThrows<IllegalArgumentException>{
-            calculator.divide(100, 0)
+            calculator.divide(randomNmbList.random(), 0)
+        }
+        assertThrows<IllegalArgumentException>{
+            calculator.divide(0, randomNmbList.random())
+        }
+        assertThrows<IllegalArgumentException>{
+            calculator.divide(randomNmbList.min(), randomNmbList.max())
         }
     }
 }
