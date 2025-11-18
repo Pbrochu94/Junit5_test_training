@@ -12,3 +12,15 @@ fun divide(a:Int, b:Int):Int{
 fun isEven(number:Int):Boolean{
     return number%2==0
 }
+fun filterEven(numberList:MutableList<Int>):List<Int>{
+    if(numberList.isEmpty()) return listOf()
+    return numberList.filter{it%2==0}
+}
+fun factorial(n:Int):Int{
+    if(n<0) throw IllegalArgumentException("factorial input is less than zero")
+    var total:Int = 1
+    for(i in 2..n){
+        total *= i
+    }
+    return total
+}

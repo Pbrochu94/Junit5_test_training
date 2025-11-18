@@ -38,7 +38,7 @@ Exercice 5 – Filtrer une liste
 
 Écris une fonction filterEven(numbers: List<Int>): List<Int>.
 
-Teste que listOf(1,2,3,4) retourne [2,4]
+Teste qu'une liste retourne seulement une liste de nombre pair
 
 Teste qu’une liste vide retourne une liste vide
 

@@ -111,3 +111,30 @@ class Case4 {
         }
     }
 }
+
+class Case5 {
+    private lateinit var randomNmbList: MutableList<Int>
+    @BeforeEach
+    fun`init`(){
+        randomNmbList = mutableListOf()
+        for(i in 0..10){
+            randomNmbList.add((Math.random() *100).toInt())
+        }
+    }
+    @Test
+    fun`filterEven function returns a list of even numbers`(){
+        val pairNmbList:List<Int> = filterEven(randomNmbList)
+        pairNmbList.forEach{
+            assertTrue(it%2==0, "$it is not a even number")
+        }
+    }
+    @Test
+    fun`filterEven function returns empty list if empty list is inputted`(){
+        val actualResult: List<Int> = filterEven(mutableListOf())
+        assertEquals(emptyList<Int>(), actualResult)
+    }
+    @Test
+    fun`factorial function return the sum of all the number up to the inputted number`(){
+        println(factorial(5))
+    }
+}
