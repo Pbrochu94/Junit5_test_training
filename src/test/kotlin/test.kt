@@ -133,8 +133,120 @@ class Case5 {
         val actualResult: List<Int> = filterEven(mutableListOf())
         assertEquals(emptyList<Int>(), actualResult)
     }
+}
+
+class Case6 {
     @Test
-    fun`factorial function return the sum of all the number up to the inputted number`(){
-        println(factorial(5))
+    fun`factorial function return the product of all the number up to the inputted number`(){
+        var listofMap: MutableList<Map<String,Int>> = mutableListOf(
+            mapOf("number" to 0, "factorial" to 1),
+            mapOf("number" to 5, "factorial" to 120),
+            mapOf("number" to 10, "factorial" to 3628800)
+        )
+        listofMap.forEach{
+            var actual:Int = factorial(it["number"]!!)
+            var expected:Int = it["factorial"]!!
+            assertEquals(expected, actual)
+        }
+    }
+    @Test
+    fun `factorial throw illegalArgumentException when less than 0 is inputted`(){
+        assertThrows<IllegalArgumentException>{
+            factorial(-1)
+        }
     }
 }
+
+class Case7 {
+    val palindromeList:List<String> = listOf<String>("radar","","a","Kayak","lEVel")
+    val nonPalindromeList:List<String> = listOf<String>("hello","phone", "Tennis")
+    @Test
+    fun`isPalindrome fun return true if word can be read from both sides`(){
+        palindromeList.forEach{
+            println(it)
+            assertTrue(isPalindrome(it), "Word $it is not a palindrome")
+        }
+    }
+    @Test
+    fun`isPalindrome fun return false if word cannot be read from both sides`(){
+        nonPalindromeList.forEach{
+            assertFalse(isPalindrome(it), "Word $it is a palindrome")
+        }
+    }
+}
+
+class Case8 {
+    @Test
+    fun `Square function return the product of number multiplied by itself`(){
+        val mapList:List<Map<String,Int>> = listOf(
+            mapOf("number" to -5, "product" to 25),
+            mapOf("number" to 0, "product" to 0),
+            mapOf("number" to 2, "product" to 4),
+            mapOf("number" to 3, "product" to 9),
+        )
+        mapList.forEach{
+            val actual:Int = square(it.getValue("number"))
+            val expected:Int = it.getValue("product")
+            assertEquals(expected, actual)
+        }
+    }
+}
+
+class Case9 {
+    @Test
+    fun `filterAdult function returns only people older than 17yo`() {
+        var personList:MutableList<Person> = mutableListOf(
+            Person("Bob", 45),
+            Person("Gerard", 55),
+            Person("Oliver", 9),
+            Person("Jacob", 8),
+            Person("Billy", 18),
+            Person("Timmy", 17)
+            )
+        val expected:MutableList<Person> = mutableListOf(
+            Person("Bob", 45),
+            Person("Gerard", 55),
+            Person("Billy", 18),
+        )
+        val actual:MutableList<Person> = filterAdults(personList)
+        assertEquals(actual, expected)
+    }
+}
+
+class Case10 {
+    val validUsername:String = "Artorias"
+    val validPassword:String = "abysswalker94"
+    val invalidUsername: MutableList<String> = mutableListOf("Smough", "Manus", "Ornstein")
+    val invalidPassword:MutableList<String> = mutableListOf("abysswalker", "walkerabyss94", " abyswalker94 ")
+    @Test
+    fun `login function returns "Logged in" message when entering valid credentials`(){
+        val actual:String = login(validUsername, validPassword)
+        val expected:String = "Logged in"
+        assertEquals(expected, actual)
+    }
+    @Test
+    fun`Login returns InvalidCredentialsException when username is invalid`(){
+        invalidUsername.forEach{
+            assertThrows<InvalidCredentialsException>{
+                login(it, validPassword)
+            }
+        }
+    }
+    @Test
+    fun`Login returns InvalidCredentialsException when password is invalid`(){
+        invalidPassword.forEach{
+            assertThrows<InvalidCredentialsException>{
+                login(validUsername, it)
+            }
+        }
+    }
+    @Test
+    fun`Login returns InvalidCredentialsException when both credentials are invalid`(){
+        for (i in 1..3){
+            assertThrows<InvalidCredentialsException>{
+                login(invalidUsername.random(), invalidPassword.random())
+            }
+        }
+    }
+}
+

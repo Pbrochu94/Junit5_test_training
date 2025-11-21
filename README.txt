@@ -65,7 +65,7 @@ Crée un test paramétré avec ces cas : (2,4), (3,9), (0,0), (-5,25)
 Exercice 9 – Liste d’objets
 
 Crée une classe Person(val name: String, val age: Int).
-Écris une fonction filterAdults(people: List<Person>): List<Person> qui retourne uniquement ceux de 18 ans ou plus.
+Écris une fonction filterAdults(people: MutableList<Person>): MutableList<Person> qui retourne uniquement ceux de 18 ans ou plus.
 
 Teste avec plusieurs personnes de différents âges
 
