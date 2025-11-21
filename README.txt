@@ -1,78 +1,152 @@
 # Junit5_test_training
+*Introduction*
+This project contains 10 exercises designed to practice unit testing in Kotlin using JUnit 5.
+Each exercise includes a small function or class along with unit tests covering normal behavior, edge cases, and exception handling.
 
-Exercice 1 – Addition simple
+*Exercises*
+Exercise 1 – Simple Addition
 
-Écris une fonction add(a: Int, b: Int): Int.
+Function: add(a: Int, b: Int): Int
+Tests:
 
-Teste add(2, 3) == 5
+add(2, 3) == 5
 
-Teste add(-1, 1) == 0
+add(-1, 1) == 0
 
-Teste add(0, 0) == 0
+add(0, 0) == 0
 
-Exercice 2 – Division avec exception
+Exercise 2 – Division with Exception
 
-Écris une fonction divide(a: Int, b: Int): Int.
+Function: divide(a: Int, b: Int): Int
+Tests:
 
-Teste divide(10, 2) == 5
+divide(10, 2) == 5
 
-Teste que divide(5, 0) lance une IllegalArgumentException
+divide(5, 0) should throw IllegalArgumentException
 
-Exercice 3 – Vérifier pair ou impair
+Exercise 3 – Check Even or Odd
 
-Écris une fonction isEven(n: Int): Boolean.
+Function: isEven(n: Int): Boolean
+Tests:
 
-Teste avec plusieurs nombres : 2, 3, 0, -4
+2 → true
 
-Exercice 4 – Classe Calculator
+3 → false
 
-Écris une classe Calculator avec les méthodes :
+0 → true
 
-add(a,b), subtract(a,b), multiply(a,b), divide(a,b)
+-4 → true
 
-Teste toutes les méthodes avec plusieurs valeurs
+Exercise 4 – Calculator Class
 
-Teste que divide par 0 lance une exception
+Class: Calculator with:
 
-Exercice 5 – Filtrer une liste
+add(a,b)
 
-Écris une fonction filterEven(numbers: List<Int>): List<Int>.
+subtract(a,b)
 
-Teste qu'une liste retourne seulement une liste de nombre pair
+multiply(a,b)
 
-Teste qu’une liste vide retourne une liste vide
+divide(a,b)
 
-Exercice 6 – Factorielle
+Tests:
 
-Écris une fonction factorial(n: Int): Int.
+Verify all operations with multiple values
 
-Teste pour n = 0, 5, 10
+Verify that divide throws an exception when dividing by zero
 
-Teste que n < 0 lance une exception
+Exercise 5 – Filter Even Numbers
 
-Exercice 7 – Vérifier un palindrome
+Function:
+filterEven(numbers: List<Int>): List<Int>
 
-Écris une fonction isPalindrome(s: String): Boolean.
+Tests:
 
-Teste "radar", "hello", "", "a"
+A list should return only even numbers
 
-Exercice 8 – Test paramétré
+An empty list should return an empty list
 
-Écris une fonction square(n: Int): Int.
+Exercise 6 – Factorial
 
-Crée un test paramétré avec ces cas : (2,4), (3,9), (0,0), (-5,25)
+Function: factorial(n: Int): Int
+Tests:
 
-Exercice 9 – Liste d’objets
+factorial(0)
 
-Crée une classe Person(val name: String, val age: Int).
-Écris une fonction filterAdults(people: MutableList<Person>): MutableList<Person> qui retourne uniquement ceux de 18 ans ou plus.
+factorial(5)
 
-Teste avec plusieurs personnes de différents âges
+factorial(10)
 
-Exercice 10 – Login et exception personnalisée
+Negative values should throw an exception
 
-Écris une fonction login(username: String, password: String) qui lance une exception InvalidCredentialsException si le mot de passe est incorrect.
+Exercise 7 – Palindrome Check
 
-Teste que la fonction fonctionne avec les bons identifiants
+Function: isPalindrome(s: String): Boolean
+Tests:
 
-Teste qu’elle lance l’exception avec des identifiants incorrects
+"radar" → true
+
+"hello" → false
+
+"" → true
+
+"a" → true
+
+Exercise 8 – Parameterized Test
+
+Function: square(n: Int): Int
+Parameterized test cases:
+
+(2 → 4)
+
+(3 → 9)
+
+(0 → 0)
+
+(-5 → 25)
+
+Exercise 9 – List of Objects
+
+Class:
+
+class Person(val name: String, val age: Int)
+
+
+Function:
+filterAdults(people: MutableList<Person>): MutableList<Person>
+→ returns only people who are 18 or older
+
+Tests:
+
+Multiple people with different ages
+
+Verify that only adults are returned
+
+Exercise 10 – Login + Custom Exception
+
+Function:
+login(username: String, password: String)
+
+Returns "Logged in" when credentials are correct
+
+Throws InvalidCredentialsException for invalid credentials
+
+Tests:
+
+Valid credentials
+
+Invalid username
+
+Invalid password
+
+Both username and password invalid
+
+*Technologies Used*
+
+- Kotlin
+
+- JUnit 5
+
+- IntelliJ IDEA
+
+- Gradle
